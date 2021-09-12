@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vue app</title>
+  <link href="main.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+<body>
+
+  <div class="buttons" id="app">
+    <word-button v-for="post in posts" v-bind:title="post"></word-button>
+  </div>
+
+  <script>
+
+    Vue.component('word-button', {
+      props: ['title'],
+      data: function(){
+        return {
+          cross : "cross",
+          flex: "single-button",
+          text: "text"
+        }
+      },
+      template: '<div v-bind:class="flex"><p v-bind:class="text">{{ title }}</p><div v-bind:class="cross" v-on:click="suppress"><span></span><span></span></div></div>',
+      methods: {
+        suppress: function(){
+          this.$destroy();
+          this.$el.parentNode.removeChild(this.$el);
+        }
+      }
+    })
+
+    let app = new Vue({
+      el: '#app',
+      data() {
+        return {
+          posts: [],
+        };
+      },
+
+      methods: {
+        async getData() {
+          try {
+            let response = await fetch("https://jsonplaceholder.typicode.com/todos");
+            let title = await response.json();
+            let words = title[0].title.split(' ');
+            this.posts = words;
+          } catch (error) {
+            console.log(error);
+          }
+        }
+      },
+
+      created() {
+        this.getData();
+      },
+    });
+
+    
+  </script>
+</body>
+</html>

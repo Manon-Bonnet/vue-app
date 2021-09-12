@@ -1,0 +1,38 @@
+.buttons{
+  display: flex;
+}
+
+.cross{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 10px;
+}
+
+.cross span{
+  display: block;
+  background-color: red;
+  width: 20px;
+  height: 3px;
+}
+
+.cross :nth-child(1){
+  transform: rotate(45deg);
+}
+
+.cross :nth-child(2){
+  transform: rotate(135deg);
+  position: absolute;
+}
+
+.single-button{
+  display: flex;
+  padding: 10px;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-right: 5%;
+}
+
+.text{
+  margin: 0
+}
